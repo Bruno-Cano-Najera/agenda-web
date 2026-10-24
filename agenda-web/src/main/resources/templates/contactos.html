@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Agenda de Contactos</title>
+</head>
+<body>
+    <h1>Agenda de Contactos</h1>
+
+    <a href="/nuevo">Agregar contacto</a>
+
+    <p th:if="${#lists.isEmpty(contactos)}">No hay contactos registrados.</p>
+
+    <table th:unless="${#lists.isEmpty(contactos)}">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="c : ${contactos}">
+                <td th:text="${c.nombre}">-</td>
+                <td th:text="${c.apellido}">-</td>
+                <td th:text="${c.email}">-</td>
+                <td th:text="${c.telefono}">-</td>
+                <td>
+                    <a th:href="@{/editar/{id}(id=${c.id})}">Editar</a>
+                    <form th:action="@{/eliminar/{id}(id=${c.id})}" method="post"
+                          style="display: inline;">
+                        <button type="submit"
+                                onclick="return confirm('¿Eliminar este contacto?');">
+                            Eliminar
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

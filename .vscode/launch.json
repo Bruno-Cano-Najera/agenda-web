@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-AgendaWebApplication<agenda-web>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.gremio.agenda_web.AgendaWebApplication",
+            "projectName": "agenda-web",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
