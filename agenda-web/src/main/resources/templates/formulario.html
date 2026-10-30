@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Nuevo Contacto</title>
+    <title>Contacto</title>
     <style>
         body  { font-family: Arial, sans-serif; background: #1a1a2e;
                 color: #e0e0e0; display: flex; justify-content: center;
@@ -17,18 +17,22 @@
         button { width: 100%; padding: 12px; background: #4a90d9;
                  border: none; border-radius: 6px; color: white;
                  font-size: 1em; cursor: pointer; }
-        a     { display: block; text-align: center; margin-top: 16px;
-                color: #4a90d9; }
+        a     { display: block; text-align: center; margin-top: 16px; color: #4a90d9; }
     </style>
 </head>
 <body>
     <div class="caja">
-        <h1 th:text="${contacto.id == null} ? 'Nuevo Contacto' : 'Editar Contacto'">
-            Nuevo Contacto
+        <h1 th:text="${contacto.id} != null ? '✏️ Editar Contacto' : '📋 Nuevo Contacto'">
+            Contacto
         </h1>
-        <form th:action="${contacto.id == null} ? @{/guardar} : @{/actualizar}"
-              th:object="${contacto}" method="post">
+
+        <form th:action="${contacto.id} != null ? @{/actualizar} : @{/guardar}"
+              th:object="${contacto}"
+              method="post">
+
+            <!-- Campo oculto: necesario para que el UPDATE sepa qué ID modificar -->
             <input type="hidden" th:field="*{id}" />
+
             <label>Nombre</label>
             <input type="text" th:field="*{nombre}" placeholder="Nombre" required />
 
@@ -41,12 +45,9 @@
             <label>Teléfono</label>
             <input type="tel" th:field="*{telefono}" placeholder="81 1234 5678" />
 
-            <button type="submit"
-                    th:text="${contacto.id == null} ? 'Guardar contacto' : 'Actualizar contacto'">
-                Guardar contacto
-            </button>
+            <button type="submit">💾 Guardar</button>
         </form>
-        <a href="/contactos">← Ver todos los contactos</a>
+        <a href="/contactos">← Cancelar</a>
     </div>
 </body>
 </html>
